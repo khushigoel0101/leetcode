@@ -1,25 +1,21 @@
 class Solution {
 public:
     string makeFancyString(string s) {
-        if (s.empty()) return s;
-
-        string t = "";  
-        int c = 1;  
-
-        t += s[0];  
-
-        for (int i = 1; i < s.length(); i++) {
-            if (s[i] == s[i - 1]) {
+        vector<char>v;
+        int c =1;
+        v.push_back(s[0]);
+        for(int i =1; i<s.length();i++){
+            if(s[i]==s[i-1]){
                 c++;
-                if (c > 2) continue;
-            } else {
-                c = 1;  
             }
-
-            t += s[i];  
+            else{
+                c=1;
+            }
+            if(c<3){
+                v.push_back(s[i]);
+            }
         }
-
-        return t;
+        string p(v.begin(),v.end());
+        return p;
     }
 };
-
