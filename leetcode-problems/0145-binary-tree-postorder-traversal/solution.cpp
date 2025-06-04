@@ -15,21 +15,24 @@ public:
         vector<int> result;
         if (!root) return result;
 
-        stack<TreeNode*> stack1, stack2;
-        stack1.push(root);
+        stack<TreeNode*> st;
+        TreeNode* curr = root;
+        TreeNode* lastVisited = nullptr;
 
-        while (!stack1.empty()) {
-            TreeNode* node = stack1.top();
-            stack1.pop();
-            stack2.push(node);
-
-            if (node->left) stack1.push(node->left);
-            if (node->right) stack1.push(node->right);
-        }
-
-        while (!stack2.empty()) {
-            result.push_back(stack2.top()->val);
-            stack2.pop();
+        while (curr || !st.empty()) {
+            if (curr) {
+                st.push(curr);
+                curr = curr->left;
+            } else {
+                TreeNode* node = st.top();
+                if (node->right && lastVisited != node->right) {
+                    curr = node->right;
+                } else {
+                    result.push_back(node->val);
+                    lastVisited = node;
+                    st.pop();
+                }
+            }
         }
 
         return result;
