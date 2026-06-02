@@ -1,29 +1,34 @@
 class Solution {
-public:
-    bool isPalindrome(string s) {
-        int n = s.length();
-        int i = 0, j = n - 1;
+private:
+    
+    bool checkPalindrome(const string& s, int left, int right) {
         
-        while (i < j) {
-            
-            if (!isalnum(s[i])) {
-                i++;
-            }
-            
-            else if (!isalnum(s[j])) {
-                j--;
-            }
-            
-            else {
-                if (tolower(s[i]) != tolower(s[j])) {
-                    return false;
-                }
-                i++;
-                j--;
-            }
+        if (left >= right) {
+            return true;
         }
         
-        return true;
+       
+        if (!isalnum(s[left])) {
+            return checkPalindrome(s, left + 1, right);
+        }
+        
+       
+        if (!isalnum(s[right])) {
+            return checkPalindrome(s, left, right - 1);
+        }
+        
+        
+        if (tolower(s[left]) != tolower(s[right])) {
+            return false;
+        }
+        
+       
+        return checkPalindrome(s, left + 1, right - 1);
+    }
+
+public:
+    bool isPalindrome(string s) {
+        
+        return checkPalindrome(s, 0, s.length() - 1);
     }
 };
-
