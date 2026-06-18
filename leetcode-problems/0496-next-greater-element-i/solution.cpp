@@ -1,30 +1,25 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        vector<int> arr;
-        int n1=nums1.size();
-        int n2=nums2.size();
-        for(int i=0;i<n1;i++)
-        {
-            int val=nums1[i];
-            for(int j=0;j<n2;j++)
-            {
-                if(nums2[j]==val)
-                {
-                    for(int k=j+1;k<n2;k++)
-                    {
-                        if(nums2[k]>nums2[j])
-                        {
-                            arr.push_back(nums2[k]);
-                            break;
-                        }
-                    }
-                }
-            }
-            if(arr.size() < i+1)
-            arr.push_back(-1);
-        } 
-        return arr;
-    
+        vector<int>nge(nums2.size());
+        stack<int>st;
+        vector<int>res;
+        for(int i = nums2.size()-1 ; i>=0; i--){
+           while(st.empty()!= true && st.top()<nums2[i]){
+            st.pop();
+           }
+           if(!st.empty()){
+            nge[i] = st.top();
+           }else{
+            nge[i] = -1;
+           }
+           st.push(nums2[i]);
+        }
+        for(int i = 0; i<nums1.size(); i++){
+            auto it = std::find(nums2.begin(), nums2.end(), nums1[i]);
+            int index = std::distance(nums2.begin(), it);
+            res.push_back(nge[index]);
+        }
+        return res;
     }
 };
