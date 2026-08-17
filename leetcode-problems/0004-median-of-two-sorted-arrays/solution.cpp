@@ -1,40 +1,37 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int n1 = nums1.size();
-        int n2= nums2.size();
-        int i =0,j =0;
-        int n = n1+ n2;
-        int in2 = n/2;
-        int in1 = in2 - 1;
-        int c =0; int inel1 = -1; int inel2 = -1;
-        while(i<n1 && j<n2){
-            if(nums1[i]<nums2[j]){
-                if(c == in1) inel1 = nums1[i];
-                if(c == in2) inel2 = nums1[i];
-                c++; i++; 
+       /* jo chhota wala array hai uspe binary search lagaenge ki uske kitne elements pick krne hai for the left half then check if my partitioning is giving the correct ans */
+       if(nums1.size() > nums2.size())
+            return findMedianSortedArrays(nums2, nums1);
+        
+        int m = nums1.size();
+        int n = nums2.size();
+        
+        int low = 0, high = m;
+        while(low <= high) {
+            
+            int Px = low + (high-low)/2; //pehle array se kitne elements liye
+            int Py = (m+n+1)/2 - Px; //aur kitne lene hain from array 2
+            
+            int x1  = (Px == 0) ? INT_MIN : nums1[Px-1];
+            int x3 = (Px == m) ? INT_MAX : nums1[Px];
+            
+            int x2  = (Py == 0) ? INT_MIN : nums2[Py-1];
+            int x4 = (Py == n) ? INT_MAX : nums2[Py];
+            
+            if(x1 <= x4 && x2 <= x3) {
+                if((m+n)%2 == 0)
+                    return (max(x1, x2) + min(x3, x4))/2.0;
+                
+                return max(x1, x2);
+            } else if(x1 > x4) {
+                high = Px-1;
+            } else {
+                low = Px+1;
             }
-            else{
-                if(c == in1) inel1 = nums2[j];
-                if(c == in2) inel2 = nums2[j];
-                c++; j++;
-            }
         }
-        while(i<n1){
-            if(c == in1) inel1 = nums1[i];
-                if(c == in2) inel2 = nums1[i];
-                c++; i++;
-        }
-        while(j<n2){
-            if(c == in1) inel1 = nums2[j];
-                if(c == in2) inel2 = nums2[j];
-                c++; j++;
-        }
-        if(n%2 == 1){
-            return inel2;
-        }
-        else{
-            return (double)((double)inel1 + inel2)/2.0;
-        }
+        
+        return -1; 
     }
 };
