@@ -11,26 +11,13 @@
  */
 class Solution {
 public:
-    bool isonepre(TreeNode* root){
-        if(root == NULL) return false;
-        if(root->val == 1) return true;
-        return isonepre(root->left) || isonepre(root->right);
-    }
     TreeNode* pruneTree(TreeNode* root) {
-        if(root==NULL)return NULL;
-
-        if(!isonepre(root->left))
-        root->left=NULL;
-
-        if(!isonepre(root->right))
-        root->right = NULL;
-
-        pruneTree(root->left);
-        pruneTree(root->right);
-
-        if(root->left == NULL && root->right==NULL && root->val == 0)
-        return NULL;
-
+        if(!root)
+            return NULL;
+        root->left  = pruneTree(root->left);
+        root->right = pruneTree(root->right);
+        if(!root->left && !root->right && root->val == 0)
+            return NULL;
         return root;
     }
 };
