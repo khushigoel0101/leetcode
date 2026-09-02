@@ -11,23 +11,28 @@
  */
 class Solution {
 public:
-    int maxSum;
+     int max_sum ;
 
-    int dfs(TreeNode* node) {
-        if (!node) return 0;
+     int solve(TreeNode* root){
+        if(root == NULL) return 0;
 
-        int leftGain = max(0, dfs(node->left));  
-        int rightGain = max(0, dfs(node->right));
-        int pathSum = node->val + leftGain + rightGain;
+        int l = solve(root->left);
+        int r = solve (root->right);
 
-        maxSum = max(maxSum, pathSum);
-        return node->val + max(leftGain, rightGain);
+        int neeche_hi_accha = l + r + root->val;
+        int ek_accha = max(l,r) + root->val;
+        int srif_root_accha = root->val;
+
+        max_sum = max({ max_sum, neeche_hi_accha, ek_accha, srif_root_accha });
+
+        return max (ek_accha, srif_root_accha);
     }
-
     int maxPathSum(TreeNode* root) {
-        maxSum = INT_MIN;
-        dfs(root);
-        return maxSum;
+        max_sum = INT_MIN;
+
+        solve(root);
+
+        return max_sum;
+
     }
 };
-
