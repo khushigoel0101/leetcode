@@ -11,23 +11,25 @@
  */
 class Solution {
 public:
-   vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> result;
-    stack<TreeNode*> st;
-    TreeNode* curr = root;
-
-    while (curr != nullptr || !st.empty()) {
-        while (curr != nullptr) {
-            st.push(curr);
-            curr = curr->left;
+//LVR, Morris traversal - with pointers.
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>result;
+        TreeNode* curr = root;
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                result.push_back(curr->val);
+                curr = curr->right;
+            }else{
+                TreeNode* leftc = curr->left;
+                while(leftc->right!=NULL){
+                    leftc = leftc->right;
+                }
+                leftc->right = curr;
+                TreeNode* temp = curr;
+                curr= curr->left;
+                temp->left = NULL;
+            }
         }
-        curr = st.top(); st.pop();
-        result.push_back(curr->val);
-        curr = curr->right;
+        return result;
     }
-
-    return result;
-}
-
 };
-
