@@ -1,23 +1,33 @@
+
 class Solution {
 public:
-    int robRange(vector<int>& nums, int start, int end) {
-    int n = nums.size();
-    vector<int> dp(n);
-    if(start == end) return nums[start];
-    else{
-       dp[start] = nums[start];
-       dp[start + 1] = max(nums[start], nums[start + 1]);
-       for(int i = start+2; i<= end; i++){
-          dp[i] = max(dp[i-1], nums[i] + dp[i-2]);
-       }
-       return dp[end];
-    }
-    
-}
     int rob(vector<int>& nums) {
         int n = nums.size();
-        if(n==1) return nums[0];
-        else
-        return max ( robRange(nums, 0, n-2), robRange(nums, 1, n-1 ));
+        if (n == 1) return nums[0];
+        
+        // Allocate space for up to n houses
+        vector<int> t(n + 1, 0); 
+        
+        // Case 1: Take from 1st House
+        t[0] = 0;
+        t[1] = nums[0];
+        for (int i = 2; i <= n - 1; i++) {
+            t[i] = max(t[i - 1], nums[i - 1] + t[i - 2]);
+        }
+        int result1 = t[n - 1];
+
+        fill(t.begin(), t.end(), 0);
+
+        // Case 2: Skip 1st House
+        t[0] = 0; 
+        t[1] = 0; // 0 houses taken from this range yields 0
+        t[2] = nums[1]; // Taking just the second house
+        for (int i = 3; i <= n; i++) {
+            t[i] = max(t[i - 1], nums[i - 1] + t[i - 2]);
+        }
+        int result2 = t[n];
+
+        return max(result1, result2);
     }
 };
+
