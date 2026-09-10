@@ -1,18 +1,22 @@
 class Solution {
 public:
+    //space optimized version
+    //things to remember -> prevprev = 0 initially and prev = nums[0], then fill 1 to n (following 0 
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int>dp(n);
-           if(n==1)
-           return nums[0];
-           else{
-            dp[0]= nums[0];
-            dp[1] = max(nums[0], nums[1]);
-            for(int i = 2; i<n; i++ ){
-                dp[i] = max(dp[i-1], nums[i] + dp[i-2]);
-            }
-           }
-        
-        return dp[n-1];
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        int prevPrev = 0;
+        int prev = nums[0];
+        for (int i = 1; i < n; i++) {
+            int skip = prev;
+            int take = nums[i] + prevPrev;
+            int current = max(skip, take);
+            prevPrev = prev;
+            prev = current;
+        }
+
+        return prev;
     }
 };
+
