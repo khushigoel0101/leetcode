@@ -1,13 +1,18 @@
 class Solution {
 public:
+    //Bottom up, array, ar[i] = no of ways to climb i stairs, space optimized(only two states)
     int climbStairs(int n) {
-        vector<int> dp(n+1,-1);
-        dp[0] = 1;
-        dp[1] = 1;
-        for(int i = 2; i<=n; i++){
-            dp[i] = dp[i-2] + dp[i-1];
+        if(n == 1 || n == 2 || n == 3)
+            return n;
+        int a = 1;
+        int b = 2;
+        int c = 3;
+        for(int i = 3; i<=n; i++) {
+            c = a + b; 
+            int temp_b = b;
+            b = c;
+            a = temp_b;
         }
-        return dp[n];
+        return c;
     }
 };
-
