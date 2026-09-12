@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //If the next el is not mergable push it else merge by changing .back()[1]
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         sort(intervals.begin(),intervals.end());
         vector<vector<int>>merged;
