@@ -1,5 +1,6 @@
 class Solution {
 public:
+//index not asked - sort - use two pointer, the variable to store closest sum int closestSum = 100000;, update it when smaller found.
     int threeSumClosest(vector<int>& nums, int target) {
         int n = nums.size();
         sort(nums.begin(), nums.end());
