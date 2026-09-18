@@ -1,7 +1,7 @@
 class Solution {
 public:
     TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
-        unordered_map<int, TreeNode*> mpp;
+        unordered_map<int, TreeNode*> mpp;//to create tree new node's val - pointer
         unordered_set<int> children;
 
         for (const auto& desc : descriptions) {
@@ -10,7 +10,7 @@ public:
             int isLeft = desc[2];
 
             if (mpp.find(parent) == mpp.end()) {
-                mpp[parent] = new TreeNode(parent);
+                mpp[parent] = new TreeNode(parent);//create the treenode and store it's pointer in mpp
             }
             TreeNode* parentNode = mpp[parent];
 
@@ -25,7 +25,7 @@ public:
                 parentNode->right = childNode;
             }
 
-            children.insert(child);
+            children.insert(child);// if it's a child it can't be root
         }
 
         for (const auto& pair : mpp) {
