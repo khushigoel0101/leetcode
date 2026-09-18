@@ -12,15 +12,17 @@
 class Solution {
 public:
     int maxDiameter = 0;
-
+    //left se bilkul neeche + right se bilkul neeche
     int depth(TreeNode* node) {
         if (node == nullptr) return 0;
 
         int leftDepth = depth(node->left);
         int rightDepth = depth(node->right);
 
+        // Update the maximum diameter
         maxDiameter = max(maxDiameter, leftDepth + rightDepth);
 
+        // Return the height of the current node
         return 1 + max(leftDepth, rightDepth);
     }
 
@@ -29,4 +31,3 @@ public:
         return maxDiameter;
     }
 };
-
