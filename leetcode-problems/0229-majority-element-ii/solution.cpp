@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // an array can have at most two such elemnts
+    //use a second loop to check if the two elements actually satisfy the condition
     vector<int> majorityElement(vector<int>& nums) {
         int cn1 = 0 , cn2 = 0, el1= 0, el2 = 0;
         int n = nums.size();
