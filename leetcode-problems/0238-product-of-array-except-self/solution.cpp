@@ -1,20 +1,16 @@
 class Solution {
 public:
-//can be further optimized by 2 pass 1 - store prefix in res, 2 - res*suff
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int>pref(n), suff(n);
-        pref[0] = 1;
-        suff[n-1] = 1;
+        vector<int>prefixpod(n,1), suffixprod(n,1), res(n);
         for(int i = 1; i<n; i++){
-          pref[i] = nums[i-1]*pref[i-1];
+            prefixpod[i] = prefixpod[i-1]*nums[i-1];
         }
         for(int i = n-2; i>=0; i--){
-            suff[i] = nums[i+1]*suff[i+1];
+            suffixprod[i] = suffixprod[i+1]*nums[i+1];
         }
-        vector<int>res(n);
         for(int i = 0; i<n; i++){
-           res[i] = pref[i]*suff[i];
+            res[i] = prefixpod[i]* suffixprod[i];
         }
         return res;
     }
