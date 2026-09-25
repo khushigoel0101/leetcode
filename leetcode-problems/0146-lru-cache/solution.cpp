@@ -1,0 +1,50 @@
+class LRUCache {
+public:
+    vector<pair<int,int>>cache;
+    int n;
+    LRUCache(int capacity) {
+        n= capacity;
+    }
+    
+    int get(int key) {
+        for(int i = 0; i<cache.size(); i++){
+            if(cache[i].first == key){
+                int val = cache[i].second;
+            
+                pair<int,int>temp = cache[i];
+                cache.erase(cache.begin()+i);
+                cache.push_back(temp);
+                return val;
+            }
+        }
+        return -1;
+        
+    }
+    
+    void put(int key, int value) {
+        //check if present 
+        //erase(i) and push_back
+        //if not found , size>capacity then delete the least recently  erase(cache.begin())
+        for(int i = 0; i<cache.size(); i++){
+            if(cache[i].first == key){
+                cache.erase(cache.begin()+i);
+                cache.push_back({key,value});
+                return;
+            }
+        }
+        if(cache.size()==n){
+            cache.erase(cache.begin());
+            cache.push_back({key,value});
+        }else if(cache.size()<n){
+           cache.push_back({key,value});
+        }
+        return;
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
