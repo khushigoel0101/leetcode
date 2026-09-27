@@ -6,7 +6,7 @@ public:
     MyHashSet() {
         hash.resize(1000001, false);
     }
-    
+
     void add(int key) {
         hash[key] = true;
     }
