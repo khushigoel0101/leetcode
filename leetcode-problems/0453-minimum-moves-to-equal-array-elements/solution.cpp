@@ -3,8 +3,8 @@ public:
     int minMoves(vector<int>& nums) {
         int min_val = *min_element(nums.begin(), nums.end());
         int moves = 0;
-        for (int num : nums) {
-            moves += num - min_val;
+        for(int i = 0; i<nums.size(); i++){
+            moves += nums[i] - min_val;
         }
         return moves;
     }
