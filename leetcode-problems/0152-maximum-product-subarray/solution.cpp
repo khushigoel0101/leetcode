@@ -1,10 +1,12 @@
 class Solution {
 public:
+//Multiplying two negative numbers turns them positive.
+//An even number of negatives gives a positive product, while an odd number gives a negative product.
     int maxProduct(vector<int>& nums) {
         int pre = 1, suff = 1;
         int n = nums.size();
         int ans = INT_MIN;
-        for(int i =0; i<n; i++){
+        for(int i =0; i<n; i++){ 
            if(pre == 0) pre = 1;
            if(suff == 0) suff = 1;
 
