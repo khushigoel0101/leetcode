@@ -2,23 +2,19 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int start = 0;
-        int end = height.size() - 1;
-        int leftMax = 0;
-        int rightMax = 0;
-        int tot = 0;
+        int end = height.size()-1;
+        int lmax = 0, rmax = 0 , tot = 0;
         while(start<end){
-            leftMax = max(leftMax, height[start]);
-            rightMax = max(rightMax, height[end]);
-
-            if(leftMax < rightMax){
-                tot += leftMax - height[start];
+            lmax = max(lmax, height[start]);
+            rmax = max(rmax, height[end]);
+            if(lmax<rmax){// bcz we don't care what's on the right water depends on shorter one
+                tot += lmax - height[start];
                 start++;
             }else{
-                tot += rightMax - height[end];
-                end--;
+                tot += rmax - height[end];
+                end --;
             }
-
         }
-        return tot ;
+        return tot;
     }
 };
