@@ -1,34 +1,31 @@
 class Solution {
 public:
     int minSwaps(vector<int>& nums) {
-        int n = nums.size();
-        vector<int>rep(nums.begin(), nums.end());
-        for(int i = 0; i<n-1; i++){
-            rep.push_back(nums[i]);
+        vector<int>db(nums.begin(),nums.end());
+        for(int i = 0; i<nums.size(); i++){
+            db.push_back(nums[i]);
         }
-        int cnt = 0;
-        for(int i = 0; i<n; i++){
-            if(nums[i]==1){
+        int cnt_one = 0;
+        for(int i = 0; i<nums.size(); i++){
+            if(nums[i]==1)
+            cnt_one++;
+        }
+        int l = 0, r= 0, max_sub=0;int cnt=0;
+        while(r<db.size()){
+            if(db[r]==1){
                 cnt++;
             }
-        }
-        int k = cnt;
-        int l = 0; int r = 0;
-        int mxone = 0;
-        int curr = 0;
-        while(r<rep.size()){
-            if(rep[r]==1){
-                curr++;
+            if(r-l+1>cnt_one){
+                if(db[l]==1){
+                    cnt--;
+                }
+                l++;
             }
-            if(r-l+1==k){
-               mxone = max(mxone, curr);
-               if(rep[l]==1){
-                curr--;
-               }
-               l++;
+            if(r-l+1 == cnt_one){
+                max_sub = max(max_sub, cnt);
             }
             r++;
         }
-        return cnt-mxone;
+        return cnt_one - max_sub;
     }
 };
