@@ -1,5 +1,6 @@
 class Solution {
 public:
+//we buy when we know next day is going to be profitable and vice versa
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
         int lmin = prices[0];
