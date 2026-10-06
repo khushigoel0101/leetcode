@@ -1,33 +1,28 @@
-
 class Solution {
 public:
+    int robery(vector<int>& nums, int start, int end) {
+        int len = end - start + 1;
+        if (len <= 0) return 0;
+        if (len == 1) return nums[start];
+        
+        vector<int> t(len, 0);
+        t[0] = nums[start];
+        t[1] = max(nums[start], nums[start + 1]);
+        
+        for (int i = 2; i < len; i++) {
+            t[i] = max(nums[start + i] + t[i - 2], t[i - 1]);
+        }
+        
+        return t[len - 1];
+    }
+
     int rob(vector<int>& nums) {
         int n = nums.size();
         if (n == 1) return nums[0];
         
-        // Allocate space for up to n houses
-        vector<int> t(n + 1, 0); 
+        int choice1 = robery(nums, 0, n - 2);
+        int choice2 = robery(nums, 1, n - 1);
         
-        // Case 1: Take from 1st House
-        t[0] = 0;
-        t[1] = nums[0];
-        for (int i = 2; i <= n - 1; i++) {
-            t[i] = max(t[i - 1], nums[i - 1] + t[i - 2]);
-        }
-        int result1 = t[n - 1];
-
-        fill(t.begin(), t.end(), 0);
-
-        // Case 2: Skip 1st House
-        t[0] = 0; 
-        t[1] = 0; // 0 houses taken from this range yields 0
-        t[2] = nums[1]; // Taking just the second house
-        for (int i = 3; i <= n; i++) {
-            t[i] = max(t[i - 1], nums[i - 1] + t[i - 2]);
-        }
-        int result2 = t[n];
-
-        return max(result1, result2);
+        return max(choice1, choice2);
     }
 };
-
