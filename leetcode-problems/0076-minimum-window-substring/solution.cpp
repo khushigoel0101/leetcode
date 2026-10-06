@@ -10,7 +10,7 @@ public:
         int remaining = t.size();
         int left = 0;
         int min_len = INT_MAX;
-        int start_idx = 0; // Tracks the start of our best window
+        int start_idx = 0; 
         
         for (int r = 0; r < s.length(); r++) {
             
