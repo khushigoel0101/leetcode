@@ -1,20 +1,17 @@
 class Solution {
 public:
-//Multiplying two negative numbers turns them positive.
-//An even number of negatives gives a positive product, while an odd number gives a negative product.
     int maxProduct(vector<int>& nums) {
-        int pre = 1, suff = 1;
-        int n = nums.size();
-        int ans = INT_MIN;
-        for(int i =0; i<n; i++){ 
-           if(pre == 0) pre = 1;
-           if(suff == 0) suff = 1;
+        int res = *max_element(nums.begin(), nums.end());
+        int curMax = 1, curMin = 1;
 
-           pre *= nums[i];
-           suff *= nums[n-i-1];
+        for (int n : nums) {
+            int temp = curMax * n;
+            curMax = max({temp, curMin * n, n});
+            curMin = min({temp, curMin * n, n});
 
-           ans = max(ans, max(pre,suff));
+            res = max(res, curMax);
         }
-        return ans;
+
+        return res;        
     }
 };
