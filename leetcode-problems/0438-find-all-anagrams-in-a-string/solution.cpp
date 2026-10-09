@@ -1,32 +1,40 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        vector<int>result;
-        unordered_map<char, int>mpp;
-        for(char c: p){
-            mpp[c]++;
+        vector<int>res;
+        int req = p.length();;
+        if(s.empty() || p.empty() || s.length()<p.length()){
+            return {};
         }
-        int l =0;
-        int t = p.size();
-        for(int r = 0; r<s.length();r++){
-            if(mpp.count(s[r])){
-                if(mpp[s[r]]>0){
-                    t--;
-                }
-                mpp[s[r]]--;
-            }
-           
-           if(r-l+1>p.size()){
-            if(mpp.count(s[l])){
-                if(mpp[s[l]]>=0){
-                    t++;
-                }
-                mpp[s[l]]++;
-            }
-            l++;
-           }
-           if(t==0) result.push_back(l);
+        vector<int>cnt(26);
+        for(int i = 0; i<p.length(); i++){
+            cnt[p[i]-'a']++;
         }
-        return result;
+        int l = 0, r = 0;
+        while(r<s.length()){
+            if(cnt[s[r]-'a']>0){
+                req--;
+            }
+            cnt[s[r]-'a']--;
+
+            if(req==0){
+                res.push_back(l);
+            }
+
+            if(r-l+1 == p.length()){
+                if(cnt[s[l]-'a']>=0){
+                    req++;
+                }
+                cnt[s[l]-'a']++;
+                l++;
+            }
+            r++;
+        }
+        return res;
     }
 };
+/*
+cbaebabacd
+req = 3-2-1-0, 
+
+*/
