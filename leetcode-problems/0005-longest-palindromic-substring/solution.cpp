@@ -2,8 +2,6 @@ class Solution {
 public:
     string longestPalindrome(string s) {
         int n = s.size();
-        int bestStart = 0, bestLen = 1;
-
         for (int len = n; len > 0; len--) {
             for (int start = 0; start <= n - len; start++) {
                 int end = start + len - 1;
