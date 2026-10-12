@@ -2,29 +2,24 @@ class Solution {
 public:
     int myAtoi(string s) {
         int n = s.length();
-        int i = 0; int sign= 0;
-        long long num = 0;
-        while(s[i]==' '){
-            i++;
+        int sign = 1; long res = 0, idx = 0;
+        while(idx <s.length() && s[idx] == ' '){
+            idx++;
+        }
+        if(s[idx]=='-'){
+            sign = -1;
+            idx++;
+        }else if(s[idx] == '+'){
+            idx++;
         }
 
-        if(s[i]=='-'|| s[i]=='+'){
-           if(s[i]=='-'){sign = -1;} 
-           i++;
+        while(idx<s.length() && isdigit(s[idx])){
+            res = res*10 + (s[idx] - '0');
+
+            if(sign* res>INT_MAX) return INT_MAX;
+            if(sign * res <INT_MIN)return INT_MIN;
+            idx++;
         }
-        
-           while(s[i]=='0'){
-             i++;
-           } 
-           while(i<n && isdigit(s[i])){
-            num = num * 10 + (s[i]-'0');
-            if(num>INT_MAX && sign == 0) return INT_MAX;
-            if(sign == -1 && num>INT_MAX) return INT_MIN; 
-            i++;
-           }
-
-           if(sign == -1) num = num *-1;
-         return num;
-
+        return (int)(sign * res);
     }
 };
