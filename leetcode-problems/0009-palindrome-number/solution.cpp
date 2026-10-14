@@ -1,11 +1,13 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        string s = to_string(x);
-        
-        string r = s;
-         reverse(r.begin(),r.end());
-        if(s==r)return true;
+        int temp = x;
+        long long res = 0;
+        while(temp>0){
+           res = res*10 + (temp%10);
+           temp /= 10;
+        }
+        if((int)res == x) return true;
         else return false;
     }
 };
