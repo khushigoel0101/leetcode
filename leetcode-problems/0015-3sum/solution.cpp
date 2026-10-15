@@ -17,7 +17,7 @@ public:
                     right--;
                 }else if(nums[left] + nums[right] < -nums[i]){
                      left++;
-                } else{
+                }else{
                     while( left < right && nums[left] == nums[left+1]) left++;
                     while( left < right && nums[right] == nums[right-1]) right--;
                     res.push_back({nums[left], nums[right], nums[i]});
