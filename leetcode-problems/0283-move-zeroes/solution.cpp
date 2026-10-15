@@ -11,4 +11,3 @@ public:
     }
 };
 
-//j krta hai kaam, wo non zero element utha kr ith position pr rakhta hai aur i bs non zero positions dhundta hai .
