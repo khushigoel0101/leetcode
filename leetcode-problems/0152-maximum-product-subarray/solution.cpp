@@ -8,10 +8,15 @@ public:
             int temp = curMax * n;
             curMax = max({temp, curMin * n, n});
             curMin = min({temp, curMin * n, n});
-
             res = max(res, curMax);
         }
 
         return res;        
     }
 };
+/*
+[2,3,-2,4]
+currmax = 4, currmin = -46, res = 6
+temp = -8
+//6 -> ans
+*/
