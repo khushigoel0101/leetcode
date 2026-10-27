@@ -1,14 +1,13 @@
 class Solution {
 public:
-    //If the next el is not mergable push it else merge by changing .back()[1]
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end());
         vector<vector<int>>merged;
+        sort(intervals.begin(), intervals.end());
         for(auto interval: intervals){
-            if(merged.empty() || merged.back()[1]<interval[0]){
+            if(merged.empty()||merged.back()[1]<interval[0]){   
                 merged.push_back(interval);
-            } else{
-                merged.back()[1] = max(merged.back()[1],interval[1]);
+            }else{
+                merged.back()[1] = max(interval[1], merged.back()[1]); 
             }
         }
         return merged;
